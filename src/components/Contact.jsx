@@ -1,5 +1,4 @@
 // src/components/Contact.js
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Users, Phone, Home, Sparkles } from 'lucide-react';
 

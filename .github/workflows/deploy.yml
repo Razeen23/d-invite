@@ -32,5 +32,5 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         protocol: ftps
         local-dir: ./build/                    # Deploys CONTENTS of this folder
-        server-dir: /home/spotcard/invite.spotcard.in/  # To this location
+        server-dir: /  # To this location
         dangerous-clean-slate: true            # Removes all existing files first

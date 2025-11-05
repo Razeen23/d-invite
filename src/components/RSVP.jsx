@@ -1,5 +1,4 @@
 // src/components/RSVP.js
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Star, Sparkles, BookOpen } from 'lucide-react';
 

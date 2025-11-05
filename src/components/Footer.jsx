@@ -1,5 +1,4 @@
 // src/components/Footer.js
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Mail, Instagram, Linkedin } from 'lucide-react';
 

@@ -1,5 +1,5 @@
 // src/components/MusicPlayer.js
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Volume2, VolumeX, X } from 'lucide-react';
 

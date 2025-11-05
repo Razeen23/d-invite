@@ -1,5 +1,5 @@
 // src/components/Location.js
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 import { QRCodeSVG } from 'qrcode.react';
 import { MapPin, Navigation, Car, Clock, Phone, QrCode } from 'lucide-react';
