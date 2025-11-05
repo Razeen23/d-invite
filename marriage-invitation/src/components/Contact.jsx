@@ -253,7 +253,7 @@ const Contact = () => {
                 <div className="flex items-center justify-center gap-3 p-4 bg-white/20 rounded-xl backdrop-blur-sm border border-gold/30">
                   <Phone className="w-5 h-5 text-gold" />
                   <p className="luxury-text text-white text-lg font-semibold">
-                    Singapore
+                  +91 99659 91256
                   </p>
                 </div>
               </div>

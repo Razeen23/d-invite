@@ -187,8 +187,8 @@ const Information = () => {
       details: [
         {
           icon: Calendar,
-          title: 'November 24, 2025',
-          subtitle: 'Monday Afternoon',
+          title: 'December 3, 2025',
+          subtitle: 'Wednesday Afternoon',
           description: 'Join us for the Valima Virundhu, a post-nuptial feast in Islamic tradition (Walima) to celebrate our marriage.'
         },
         {
