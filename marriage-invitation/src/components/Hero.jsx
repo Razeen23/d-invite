@@ -109,7 +109,7 @@ const Hero = () => {
         >
           {/* Couple Image */}
           <img 
-            src="/img1.png" 
+            src="/img1.webp" 
             alt="Abdul Baasith & Alia Shafreen"
             className="w-full h-full object-cover"
             onError={(e) => {

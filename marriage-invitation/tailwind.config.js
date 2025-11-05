@@ -18,9 +18,9 @@ module.exports = {
         'cormorant': ['Cormorant Garamond', 'serif'],
       },
       backgroundImage: {
-        'hero-bg-mobile': "url('./assets/bg-mobile1.jpg')",
-        'hero-bg-tablet': "url('./assets/bg1.jpg')",
-        'hero-bg-desktop': "url('./assets/bg1.jpg')",
+        'hero-bg-mobile': "url('./assets/bg-mobile1.webp')",
+        'hero-bg-tablet': "url('./assets/bg1.webp')",
+        'hero-bg-desktop': "url('./assets/bg1.webp')",
       },
       screens: {
         'xs': '475px',

@@ -4,7 +4,7 @@ import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'fra
 import { QRCodeSVG } from 'qrcode.react';
 import { MapPin, Navigation, Car, Clock, Phone, QrCode } from 'lucide-react';
 
-import location from '../assets/location.jpg';
+import location from '../assets/location.webp';
 
 const Location = () => {
   const [showQR, setShowQR] = useState(false);
@@ -274,6 +274,7 @@ const Location = () => {
                     <img 
                       src={location} 
                       alt="Mangal Varadhar Mahal"
+                      loading="lazy"
                       className="w-full h-68 object-cover"
                       onError={(e) => {
                         e.target.style.display = 'none';

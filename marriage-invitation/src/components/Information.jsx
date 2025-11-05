@@ -1,6 +1,6 @@
 // src/components/Information.js
 import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Calendar, 
   Clock, 
@@ -20,34 +20,89 @@ import {
 const Information = () => {
   const [activeTab, setActiveTab] = useState('ceremony');
   const [expandedCard, setExpandedCard] = useState(null);
-  const sectionRef = useRef(null);
-  const timelineRef = useRef(null);
 
-  // Scroll-based animations
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"]
-  });
+  // Simplified animations with better performance
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1 // Reduced from 0.15
+      }
+    }
+  };
 
-  // Timeline scroll progress
-  const { scrollYProgress: timelineProgress } = useScroll({
-    target: timelineRef,
-    offset: ["start center", "end center"]
-  });
+  const itemVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 30, // Reduced from 40
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.4, // Reduced from 0.6
+        ease: "easeOut"
+      }
+    }
+  };
 
-  // Parallax effects
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
-  const x1 = useTransform(scrollYProgress, [0, 1], [-100, 100]);
-  const x2 = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const timelineVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15 // Reduced from 0.2
+      }
+    }
+  };
 
-  // Spring physics
-  const springY1 = useSpring(y1, { stiffness: 100, damping: 30 });
-  const springY2 = useSpring(y2, { stiffness: 100, damping: 30 });
-  const springX1 = useSpring(x1, { stiffness: 100, damping: 30 });
-  const springX2 = useSpring(x2, { stiffness: 100, damping: 30 });
+  const timelineItemVariants = {
+    hidden: { 
+      opacity: 0, 
+      x: -30, // Reduced from 50
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5, // Reduced from 0.8
+        ease: "easeOut"
+      }
+    }
+  };
 
-  // Timeline events data - Updated with actual wedding schedule
+  const timelineItemVariantsRight = {
+    hidden: { 
+      opacity: 0, 
+      x: 30, // Reduced from 50
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const timelineItemVariantsMobile = {
+    hidden: { 
+      opacity: 0, 
+      y: 20, // Reduced from 30
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  // Timeline events data
   const timelineEvents = [
     {
       time: "9:00 AM",
@@ -90,94 +145,6 @@ const Information = () => {
       duration: "1 hour"
     }
   ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: 40,
-      scale: 0.95
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.6,
-        ease: [0.25, 0.1, 0.25, 1]
-      }
-    }
-  };
-
-  const timelineVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const timelineItemVariants = {
-    hidden: { 
-      opacity: 0, 
-      x: -50,
-      scale: 0.8
-    },
-    visible: {
-      opacity: 1,
-      x: 0,
-      scale: 1,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  const timelineItemVariantsRight = {
-    hidden: { 
-      opacity: 0, 
-      x: 50,
-      scale: 0.8
-    },
-    visible: {
-      opacity: 1,
-      x: 0,
-      scale: 1,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  const timelineItemVariantsMobile = {
-    hidden: { 
-      opacity: 0, 
-      y: 30,
-      scale: 0.9
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut"
-      }
-    }
-  };
 
   const eventDetails = {
     ceremony: {
@@ -253,19 +220,12 @@ const Information = () => {
   return (
     <section 
       id="information" 
-      ref={sectionRef}
       className="relative bg-gradient-to-b from-white to-cream/30 overflow-hidden"
     >
-      {/* Scroll-based Animated Background Elements */}
+      {/* Simplified Background Elements - Removed scroll-based animations */}
       <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          style={{ x: springX1, y: springY1 }}
-          className="absolute top-1/4 left-1/4 w-72 h-72 bg-gold/5 rounded-full blur-3xl"
-        />
-        <motion.div
-          style={{ x: springX2, y: springY2 }}
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-burgundy/5 rounded-full blur-3xl"
-        />
+        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-gold/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-burgundy/5 rounded-full blur-3xl" />
       </div>
 
       <div className="section-padding relative z-10">
@@ -283,9 +243,9 @@ const Information = () => {
               whileInView={{ scale: 1 }}
               transition={{ 
                 type: "spring", 
-                stiffness: 200, 
-                damping: 15,
-                delay: 0.2 
+                stiffness: 150, // Reduced stiffness
+                damping: 20,
+                delay: 0.1 
               }}
               className="inline-flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6"
             >
@@ -299,7 +259,7 @@ const Information = () => {
             <motion.div
               initial={{ width: 0 }}
               whileInView={{ width: 80 }}
-              transition={{ duration: 1, delay: 0.5 }}
+              transition={{ duration: 0.8, delay: 0.3 }} // Reduced duration
               className="w-20 h-1 bg-gradient-to-r from-gold to-light-gold mx-auto rounded-full mb-4 sm:mb-6"
             />
             
@@ -311,7 +271,7 @@ const Information = () => {
             </motion.p>
           </motion.div>
 
-          {/* Interactive Tabs - Mobile Friendly */}
+          {/* Interactive Tabs */}
           <motion.div variants={itemVariants} className="flex justify-center mb-8 sm:mb-12">
             <div className="bg-white/80 backdrop-blur-sm rounded-xl sm:rounded-2xl p-1 sm:p-2 border border-gold/20 shadow-lg w-full max-w-md sm:max-w-lg mx-4">
               <div className="flex">
@@ -319,7 +279,7 @@ const Information = () => {
                   <button
                     key={key}
                     onClick={() => setActiveTab(key)}
-                    className={`flex-1 px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl font-playfair font-semibold text-sm sm:text-base transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 ${
+                    className={`flex-1 px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl font-playfair font-semibold text-sm sm:text-base transition-all duration-200 flex items-center justify-center gap-1 sm:gap-2 ${
                       activeTab === key
                         ? 'bg-gradient-to-r from-gold to-light-gold text-burgundy shadow-md sm:shadow-lg'
                         : 'text-dark-burgundy/70 hover:text-burgundy hover:bg-white/50'
@@ -340,7 +300,7 @@ const Information = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.3 }} // Reduced duration
               className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-12 sm:mb-20"
             >
               {eventDetails[activeTab].details.map((detail, index) => (
@@ -350,13 +310,13 @@ const Information = () => {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.3 }}
-                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileHover={{ scale: 1.01, y: -2 }} // Reduced scale
                   className={`bg-white/90 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border-2 ${eventDetails[activeTab].borderColor} shadow-lg sm:shadow-xl cursor-pointer overflow-hidden`}
                   onClick={() => toggleCard(index)}
                 >
                   <div className="flex items-start gap-3 sm:gap-4">
                     <motion.div 
-                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      whileHover={{ scale: 1.05, rotate: 2 }} // Reduced rotation
                       className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-gold to-light-gold rounded-xl sm:rounded-2xl flex items-center justify-center shadow-md sm:shadow-lg"
                     >
                       <detail.icon className="w-5 h-5 sm:w-6 sm:h-6 text-burgundy" />
@@ -376,6 +336,7 @@ const Information = () => {
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.3 }} // Reduced duration
                             className="luxury-text text-dark-burgundy/80 text-xs sm:text-sm leading-relaxed mt-2"
                           >
                             {detail.description}
@@ -386,6 +347,7 @@ const Information = () => {
                     
                     <motion.div
                       animate={{ rotate: expandedCard === index ? 180 : 0 }}
+                      transition={{ duration: 0.2 }} // Reduced duration
                       className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-gold/10 rounded-full flex items-center justify-center"
                     >
                       {expandedCard === index ? (
@@ -400,12 +362,11 @@ const Information = () => {
             </motion.div>
           </AnimatePresence>
 
-          {/* Schedule of Events Timeline - Original Desktop Design */}
+          {/* Schedule of Events Timeline */}
           <motion.div
-            ref={timelineRef}
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.5 }}
             className="mb-12 sm:mb-20"
           >
             {/* Timeline Header */}
@@ -414,9 +375,9 @@ const Information = () => {
               whileInView={{ scale: 1 }}
               transition={{ 
                 type: "spring", 
-                stiffness: 200, 
-                damping: 15,
-                delay: 0.2 
+                stiffness: 150,
+                damping: 20,
+                delay: 0.1 
               }}
               className="text-center mb-8 sm:mb-12"
             >
@@ -426,7 +387,7 @@ const Information = () => {
               <motion.div
                 initial={{ width: 0 }}
                 whileInView={{ width: 80 }}
-                transition={{ duration: 1, delay: 0.5 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
                 className="w-20 h-1 bg-gradient-to-r from-gold to-light-gold mx-auto rounded-full mb-3 sm:mb-4"
               />
               <p className="luxury-text text-base sm:text-lg text-dark-burgundy/80 px-4">
@@ -434,91 +395,80 @@ const Information = () => {
               </p>
             </motion.div>
 
-            {/* Mobile Timeline - Simple Vertical Layout */}
-{/* Mobile Timeline - Simple Vertical Layout with Icons */}
-<div className="sm:hidden">
-  <motion.div
-    variants={timelineVariants}
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true, amount: 0.3 }}
-    className="space-y-6"
-  >
-    {timelineEvents.map((event, index) => (
-      <motion.div
-        key={index}
-        variants={timelineItemVariantsMobile}
-        className="relative"
-      >
-        <motion.div
-          whileHover={{ scale: 1.02 }}
-          className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-gold/20 shadow-xl"
-        >
-          <div className="flex items-start gap-4 mb-4">
-            {/* Event Icon */}
-            <motion.div
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              className={`flex-shrink-0 w-12 h-12 bg-gradient-to-r ${event.color} rounded-xl flex items-center justify-center shadow-lg`}
-            >
-              <event.icon className="w-6 h-6 text-white" />
-            </motion.div>
-            
-            {/* Time Badge */}
-            <motion.div
-              initial={{ x: -20, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.6, delay: index * 0.1 + 0.3 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-gold to-light-gold rounded-full"
-            >
-              <Clock className="w-4 h-4 text-burgundy" />
-              <span className="luxury-text text-burgundy font-semibold text-sm">
-                {event.time}
-              </span>
-              <span className="luxury-text text-burgundy/80 text-xs">
-                ({event.duration})
-              </span>
-            </motion.div>
-          </div>
+            {/* Mobile Timeline */}
+            <div className="sm:hidden">
+              <motion.div
+                variants={timelineVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                className="space-y-6"
+              >
+                {timelineEvents.map((event, index) => (
+                  <motion.div
+                    key={index}
+                    variants={timelineItemVariantsMobile}
+                    className="relative"
+                  >
+                    <motion.div
+                      whileHover={{ scale: 1.01 }}
+                      className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-gold/20 shadow-xl"
+                    >
+                      <div className="flex items-start gap-4 mb-4">
+                        <motion.div
+                          whileHover={{ scale: 1.05 }}
+                          className={`flex-shrink-0 w-12 h-12 bg-gradient-to-r ${event.color} rounded-xl flex items-center justify-center shadow-lg`}
+                        >
+                          <event.icon className="w-6 h-6 text-white" />
+                        </motion.div>
+                        
+                        <motion.div
+                          initial={{ x: -10, opacity: 0 }}
+                          whileInView={{ x: 0, opacity: 1 }}
+                          transition={{ duration: 0.4, delay: index * 0.08 + 0.2 }}
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-gold to-light-gold rounded-full"
+                        >
+                          <Clock className="w-4 h-4 text-burgundy" />
+                          <span className="luxury-text text-burgundy font-semibold text-sm">
+                            {event.time}
+                          </span>
+                          <span className="luxury-text text-burgundy/80 text-xs">
+                            ({event.duration})
+                          </span>
+                        </motion.div>
+                      </div>
 
-          {/* Event Title */}
-          <motion.h3
-            initial={{ y: 10, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: index * 0.1 + 0.4 }}
-            className="luxury-subheading text-lg text-burgundy mb-2"
-          >
-            {event.title}
-          </motion.h3>
+                      <motion.h3
+                        initial={{ y: 5, opacity: 0 }}
+                        whileInView={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 0.4, delay: index * 0.08 + 0.3 }}
+                        className="luxury-subheading text-lg text-burgundy mb-2"
+                      >
+                        {event.title}
+                      </motion.h3>
 
-          {/* Event Description */}
-          <motion.p
-            initial={{ y: 10, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: index * 0.1 + 0.5 }}
-            className="luxury-text text-dark-burgundy/80 text-sm leading-relaxed"
-          >
-            {event.description}
-          </motion.p>
-        </motion.div>
-      </motion.div>
-    ))}
-  </motion.div>
-</div>
+                      <motion.p
+                        initial={{ y: 5, opacity: 0 }}
+                        whileInView={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 0.4, delay: index * 0.08 + 0.4 }}
+                        className="luxury-text text-dark-burgundy/80 text-sm leading-relaxed"
+                      >
+                        {event.description}
+                      </motion.p>
+                    </motion.div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
 
-            {/* Desktop Timeline - Original Design */}
+            {/* Desktop Timeline */}
             <div className="hidden sm:block relative">
               {/* Vertical Timeline Line */}
               <motion.div
                 initial={{ scaleY: 0 }}
                 whileInView={{ scaleY: 1 }}
-                transition={{ duration: 1.5, delay: 0.3 }}
+                transition={{ duration: 1, delay: 0.2 }}
                 className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-gold to-burgundy h-full"
-              />
-
-              {/* Animated Progress Line */}
-              <motion.div
-                style={{ scaleY: timelineProgress }}
-                className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gold h-full origin-top"
               />
 
               {/* Timeline Events */}
@@ -539,13 +489,13 @@ const Information = () => {
                   >
                     {/* Timeline Node */}
                     <motion.div
-                      whileHover={{ scale: 1.2 }}
+                      whileHover={{ scale: 1.1 }}
                       className={`absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-gradient-to-r ${event.color} rounded-full border-4 border-white shadow-lg z-10`}
                     >
                       <motion.div
-                        initial={{ scale: 0, rotate: -180 }}
-                        whileInView={{ scale: 1, rotate: 0 }}
-                        transition={{ duration: 0.6, delay: index * 0.1 + 0.5 }}
+                        initial={{ scale: 0 }}
+                        whileInView={{ scale: 1 }}
+                        transition={{ duration: 0.4, delay: index * 0.08 + 0.3 }}
                         className="w-full h-full flex items-center justify-center"
                       >
                         <event.icon className="w-4 h-4 text-white" />
@@ -555,18 +505,17 @@ const Information = () => {
                     {/* Content Card */}
                     <motion.div
                       whileHover={{ 
-                        scale: 1.05,
-                        y: -5,
-                        transition: { duration: 0.3 }
+                        scale: 1.02,
+                        y: -2,
                       }}
                       className={`w-5/12 ${index % 2 === 0 ? 'mr-auto pr-8' : 'ml-auto pl-8'}`}
                     >
                       <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 border-2 border-gold/20 shadow-xl">
                         {/* Time Badge */}
                         <motion.div
-                          initial={{ x: index % 2 === 0 ? -50 : 50, opacity: 0 }}
+                          initial={{ x: index % 2 === 0 ? -20 : 20, opacity: 0 }}
                           whileInView={{ x: 0, opacity: 1 }}
-                          transition={{ duration: 0.6, delay: index * 0.1 + 0.3 }}
+                          transition={{ duration: 0.4, delay: index * 0.08 + 0.2 }}
                           className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-gold to-light-gold rounded-full mb-4"
                         >
                           <Clock className="w-5 h-5 text-burgundy" />
@@ -580,9 +529,9 @@ const Information = () => {
 
                         {/* Event Title */}
                         <motion.h3
-                          initial={{ y: 20, opacity: 0 }}
+                          initial={{ y: 10, opacity: 0 }}
                           whileInView={{ y: 0, opacity: 1 }}
-                          transition={{ duration: 0.6, delay: index * 0.1 + 0.4 }}
+                          transition={{ duration: 0.4, delay: index * 0.08 + 0.3 }}
                           className="luxury-subheading text-lg text-burgundy mb-2"
                         >
                           {event.title}
@@ -590,9 +539,9 @@ const Information = () => {
 
                         {/* Event Description */}
                         <motion.p
-                          initial={{ y: 20, opacity: 0 }}
+                          initial={{ y: 10, opacity: 0 }}
                           whileInView={{ y: 0, opacity: 1 }}
-                          transition={{ duration: 0.6, delay: index * 0.1 + 0.5 }}
+                          transition={{ duration: 0.4, delay: index * 0.08 + 0.4 }}
                           className="luxury-text text-dark-burgundy/80 leading-relaxed"
                         >
                           {event.description}
@@ -609,9 +558,9 @@ const Information = () => {
                 whileInView={{ scale: 1 }}
                 transition={{ 
                   type: "spring", 
-                  stiffness: 200, 
-                  damping: 15,
-                  delay: 1 
+                  stiffness: 150,
+                  damping: 20,
+                  delay: 0.5 
                 }}
                 className="absolute left-1/2 bottom-0 transform -translate-x-1/2 w-10 h-10 bg-gold rounded-full border-4 border-white shadow-lg flex items-center justify-center"
               >
@@ -624,30 +573,17 @@ const Information = () => {
           <motion.div
             variants={itemVariants}
             whileHover={{ 
-              scale: 1.01,
-              transition: { duration: 0.3 }
+              scale: 1.005,
             }}
             className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-white to-gold/10 border-2 border-gold/30 shadow-xl sm:shadow-2xl"
           >
-            <motion.div
-              animate={{
-                backgroundPosition: ['0% 0%', '100% 100%'],
-              }}
-              transition={{
-                duration: 10,
-                repeat: Infinity,
-                ease: "linear"
-              }}
-              className="absolute inset-0 bg-gradient-to-br from-transparent via-gold/5 to-transparent bg-[length:200%_200%]"
-            />
-            
             <div className="relative z-10 p-6 sm:p-8 text-center">
               <motion.div
                 animate={{
                   rotate: [0, 1, 0, -1, 0],
                 }}
                 transition={{
-                  duration: 4,
+                  duration: 6, // Increased duration for smoother loop
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
@@ -661,9 +597,9 @@ const Information = () => {
               </motion.div>
               
               <motion.p
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 5 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
                 className="luxury-text text-sm sm:text-base leading-relaxed text-dark-burgundy/90 max-w-3xl mx-auto mb-4 sm:mb-6"
               >
                 In the name of Allah, the Most Gracious, the Most Merciful. Your presence and prayers are the greatest blessings as we begin our journey together in marriage. Come join us in these sacred celebrations filled with love, joy, and divine blessings.
@@ -672,7 +608,7 @@ const Information = () => {
               <motion.div
                 initial={{ width: 0 }}
                 whileInView={{ width: 80 }}
-                transition={{ duration: 1.5, delay: 0.5 }}
+                transition={{ duration: 1, delay: 0.3 }}
                 className="w-20 h-1 bg-gradient-to-r from-gold to-light-gold mx-auto rounded-full"
               />
             </div>
