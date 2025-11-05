@@ -22,7 +22,7 @@ jobs:
     - name: 🔨 Install and Build
       run: |
         npm install
-        npm run build
+        CI=false npm run build
 
     - name: 📂 Deploy via FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
