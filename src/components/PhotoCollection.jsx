@@ -9,11 +9,15 @@ const PhotoCollection = () => {
   }, []);
 
   return (
-    <div className={`
+    <div 
+      id="photocollection"
+      className={`
       max-w-4xl mx-auto p-8 font-cormorant
       transition-all duration-800 ease-out
       ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-    `}>
+    `}
+      style={{ scrollMarginTop: '80px' }}
+    >
       {/* Guest Upload Section */}
       <section className="text-center mb-12 relative">
         {/* Floating Icon */}
@@ -73,7 +77,7 @@ const PhotoCollection = () => {
         {/* Upload Button */}
         <div className="text-center">
           <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLSfaxZNxxDgpwoP8I05_26L9rON_uoUiEeNVVWMrpDCvgAgWvA/viewform?usp=sf_link"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSdCle4HSmAd-O2QkOqOjRA-QeX73wrZlOdHhjWIKfzLKdMf3w/viewform?usp=dialog"
             target="_blank"
             rel="noopener noreferrer"
             className="
