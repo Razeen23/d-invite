@@ -275,6 +275,7 @@ const Location = () => {
                       src={location} 
                       alt="Mangal Varadhar Mahal"
                       loading="lazy"
+                      decoding="async"
                       className="w-full h-68 object-cover"
                       onError={(e) => {
                         e.target.style.display = 'none';

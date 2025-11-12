@@ -1,15 +1,24 @@
 // src/App.js
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import { motion } from 'framer-motion';
 import Hero from './components/Hero';
-import Information from './components/Information';
-import Location from './components/Location';
-import Transportation from './components/Transportation';
-import Contact from './components/Contact';
-import RSVP from './components/RSVP';
-import Footer from './components/Footer';
 import MusicPlayer from './components/MusicPlayer';
-import PhotoCollection from './components/PhotoCollection';
+
+// Lazy load components below the fold for better initial load performance
+const Information = lazy(() => import('./components/Information'));
+const Location = lazy(() => import('./components/Location'));
+const Transportation = lazy(() => import('./components/Transportation'));
+const Contact = lazy(() => import('./components/Contact'));
+const RSVP = lazy(() => import('./components/RSVP'));
+const PhotoCollection = lazy(() => import('./components/PhotoCollection'));
+const Footer = lazy(() => import('./components/Footer'));
+
+// Loading fallback component
+// const LoadingFallback = () => (
+//   <div className="min-h-screen flex items-center justify-center">
+//     <div className="animate-pulse text-gold text-xl">Loading...</div>
+//   </div>
+// );
 
 function App() {
   const pageVariants = {
@@ -68,13 +77,27 @@ function App() {
         transition={pageTransition}
       >
         <Hero />
-        <Information />
-        <Location />
-        <Transportation />
-        <Contact />                         
-        <RSVP />
-        <PhotoCollection />
-        <Footer />
+        <Suspense fallback={null}>
+          <Information />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Location />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Transportation />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Contact />
+        </Suspense>
+        <Suspense fallback={null}>
+          <RSVP />
+        </Suspense>
+        <Suspense fallback={null}>
+          <PhotoCollection />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
       </motion.div>
     </div>
   );

@@ -111,6 +111,9 @@ const Hero = () => {
             src="/img1.webp" 
             alt="Abdul Baasith & Alia Shafreen"
             className="w-full h-full object-cover"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
             onError={(e) => {
               e.target.style.display = 'none';
               e.target.nextSibling.style.display = 'flex';

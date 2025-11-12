@@ -5,6 +5,10 @@
   <meta charset="utf-8" />
   <link rel="icon" href="%PUBLIC_URL%/logo.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <!-- DNS Prefetch for external resources -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <meta name="theme-color" content="#8B0000" />
   <meta name="description" content="Wedding Invitation - Join us as Abdul Baasith & Alia Shafreen exchange vows in a traditional Islamic Nikkah ceremony on November 23, 2025. Celebrate our special day with us!" />
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />
@@ -35,12 +39,23 @@
   <meta name="author" content="Abdul Baasith & Alia Shafreen" />
   <meta name="keywords" content="wedding, invitation, nikkah, islamic wedding, Abdul Baasith, Alia Shafreen, November 2025" />
   
-  <!-- Google Fonts -->
+  <!-- Google Fonts - Optimized Loading -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
+    rel="stylesheet"
+    media="print"
+    onload="this.media='all'">
+  <noscript>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet">
+  </noscript>
+  
+  <!-- Preload critical hero image -->
+  <link rel="preload" as="image" href="%PUBLIC_URL%/img1.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="%PUBLIC_URL%/img1.png" fetchpriority="high">
   
   <title>Wedding Invitation</title>
 </head>
