@@ -9,6 +9,7 @@ import Contact from './components/Contact';
 import RSVP from './components/RSVP';
 import Footer from './components/Footer';
 import MusicPlayer from './components/MusicPlayer';
+// import PhotoCollection from './components/PhotoCollection';
 
 function App() {
   const pageVariants = {
@@ -40,6 +41,7 @@ function App() {
         <Transportation />
         <Contact />                         
         <RSVP />
+        {/* <PhotoCollection /> */}
         <Footer />
       </motion.div>
     </div>
